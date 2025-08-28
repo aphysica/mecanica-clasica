@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="robots" content="index, follow">
+	<meta name="author" content="Alejandro A. Torassa">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="icon" href="fav/favicon.svg">
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&amp;display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&amp;display=swap" rel="stylesheet">
+	<script async="async" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	<title>Mecánica Clásica</title>
+	<style>
+		html {
+			border: 0;
+			margin: 0;
+			padding: 0;
+			outline: 0;
+			font-size: 16px;
+			line-height: 1.4;
+			list-style: none;
+			list-style-type:none;
+			text-decoration: none;
+			box-sizing: border-box;
+		}
+		body {
+			color: #454545;
+			text-align: justify;
+			background-color: #ffffff;
+			font-family: 'Spectral', ui-serif, Georgia, serif;
+		}
+		.container {
+			display: flex;
+			margin: auto;
+			max-width: 72%;
+		}
+		.content {
+			display: flex;
+		}
+		h1 {
+			color: #4581b4;
+		}
+		h2 {
+			color: #333333;
+		}
+		h1, h2 {
+			text-align: left;
+		}
+		.fuerte {
+			color: #151515;
+		}
+		.suave {
+			color: #666666;
+		}
+		a {
+			outline: none;
+			color: #2883f3;
+			text-decoration: none;
+		}
+		footer {
+			padding: 0.6em 0;
+			text-align: center;
+			border-top: 1px solid #cccccc;
+		}
+		@media (max-width: 810px) {
+			.container {
+				padding: 0 0.3em;
+				max-width: 100%;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="content">
+			<section id="page">
+
+<h1 id="myTitle" style="cursor:pointer" onclick="myTheme();">Mecánica Clásica</h1>
+
+<p id="mySpace" style="margin: -1.5em 0 +2.1em 0;">Un análisis lógico de la mecánica clásica (&nbsp;28/08/2025&nbsp;)</p>
+
+<h2 id="myIntro" style="cursor:pointer" onclick="myFont();">Introducción</h2>
+
+<p>La mecánica clásica se divide según su formalismo matemático en: mecánica newtoniana (&nbsp;también llamada mecánica vectorial&nbsp;) mecánica lagrangiana y mecánica hamiltoniana (&nbsp;todos estos modelos son observacionalmente equivalentes entre sí&nbsp;) Este artículo presenta un análisis lógico de la mecánica newtoniana en particular y de la física teórica en general (&nbsp;principalmente, este artículo presenta un análisis lógico de la dinámica newtoniana de la partícula para sistemas de referencia inerciales y no inerciales&nbsp;)</p>
+
+<h2>Índice</h2>
+
+<p class="fuerte">PARTE I</p>
+
+<p><a href="#T1">1. Primera ley de Newton</a></p>
+
+<p><a href="#T2">2. Segunda ley de Newton</a></p>
+
+<p><a href="#T3">3. Tercera ley de Newton</a></p>
+
+<p><a href="#T4">4. Fuerzas de la Naturaleza</a></p>
+
+<p class="fuerte">PARTE IV</p>
+
+<p><a href="#O0">1. Observaciones Generales</a></p>
+
+<p><a href="#N0">2. Notas y Aclaraciones</a></p>
+
+<p><a href="#R0">3. Referencias y Bibliografía</a></p>
+
+<p><a href="#A0">4. Anexos y Apéndices</a></p>
+
+<h2 id="T1">Primera ley de Newton</h2>
+
+<p class="fuerte"><i>Toda partícula permanece en su estado de reposo o de movimiento rectilíneo uniforme si sobre la partícula no actúa fuerza alguna.</i></p>
+
+<p>Siempre consideré a esta ley como redundante e innecesaria porque siempre consideré que la primera ley de Newton se deducía de la segunda ley de Newton <a href="#N1">[N1]</a></p>
+
+<p>Sin embargo, luego de leer un artículo del físico argentino Hugo Alberto Fernández <a href="#R2">[R2]</a> reflexioné sobre sus comentarios respecto a la primera ley de Newton y llegué a la conclusión que la primera ley de Newton no era redundante ni innecesaria (&nbsp;más allá incluso de su gran importancia histórica&nbsp;)</p>
+
+<p>La segunda ley de Newton es una proposición lógica del tipo: "Si pasa A entonces pasa B" (&nbsp;también llamada proposición condicional&nbsp;) <a href="#R3">[R3]</a> Donde A es que actué una fuerza neta sobre una partícula (&nbsp;esté esta fuerza neta equilibrada o no&nbsp;) y B es la aceleración de la partícula. Por lo tanto, la segunda ley de Newton, solamente establece que sucede con el estado de movimiento de una partícula cuando sobre la partícula actúan fuerzas (&nbsp;estén estas fuerzas equilibradas o no&nbsp;) pero la segunda ley de Newton no establece que tipo de movimiento debe tener una partícula cualquiera cuando sobre ésta no actúa fuerza alguna. Por lo tanto, siguiendo otra vez la lógica: "Si no pasa A entonces puede ser que pase B o que no pase B". Es decir, según la segunda ley de Newton y la lógica si sobre una partícula cualquiera no actúa fuerza alguna entonces la partícula puede estar en un estado de reposo, de movimiento rectilíneo uniforme o de aceleración. Y lo mejor de todo es que sea el estado en que se encuentre la partícula (&nbsp;en ausencia total de fuerzas sobre ésta&nbsp;) ninguno de estos tres estados refutaría la segunda ley de Newton <a href="#R4">[R4]</a> porque la segunda ley de Newton trata solamente cuando sobre cualquier partícula actúan fuerzas (&nbsp;estén estas fuerzas equilibradas o no&nbsp;) y no cuando sobre la partícula no actúa fuerza alguna.</p>
+
+<p>Y es justamente aquí donde la primera ley de Newton viene al rescate, dejando de ser una ley redundante e innecesaria, puesto que la primera ley de Newton sí establece que sucede sobre una partícula cualquiera cuando sobre ésta no actúa fuerza alguna.</p>
+
+<p>Sin embargo, el asunto con la primera ley de Newton no ha terminado aún, porque en nuestro Universo no existe ni una sola partícula sobre la cual no actúe fuerza alguna, sobre una partícula siempre actúan fuerzas (&nbsp;gravitatorias, eléctricas, etc.&nbsp;) por más pequeñas que sean, lo que hace imposible hallar experimetalmente una partícula sobre la cual no actué fuerza alguna. Por más que muchos físicos, incluso el mismo Einstein <a href="#R6">[R6]</a> utilicen la primera ley de Newton principalmente para poder definir experimentalmente a un sistema de referencia inercial, afirmando que si una partícula es alejada infinitamente de las demás partículas entonces sobre esta partícula no actuará fuerza alguna y, por lo tanto, todo sistema de referencia en el cual esta partícula esté en reposo o en movimiento rectilíneo uniforme será un sistema de referencia inercial. Sin embargo, la verdad es otra, según la ley de gravitación universal de Newton, por más que se aleje mucho una partícula de las demás partículas, actuarán sobre esta partícula fuerzas gravitatorios, por más que sean necesarias observarlas con un microscopio electrónico (&nbsp;es un decir&nbsp;) siempre actuarán sobre la partícula fuerzas gravitatorias. Pero se está aclarando que la partícula es alejada infinitamente de las demás partículas, de acuerdo, pero para poder determinar su estado de movimiento el observador necesita de reglas y relojes, como bien lo ha aclarado Einstein <a href="#R7">[R7]</a> por lo tanto, esas reglas y esos relojes que determinarán experimentalmente el estado de movimiento de la partícula de prueba ejerceran también fuerzas gravitatorias sobre la partícula de prueba (&nbsp;por más pequeñas que sean&nbsp;) y eso también hará imposible poder afirmar que experimetalmente sobre la partícula de prueba no actúa fuerza alguna.</p>
+
+<p>Por lo tanto, la primera ley de Newton tal como fue enunciada en este artículo solamente puede ser corroborada o refutada en un Universo donde es posible encontrar partículas en las cuales no actúe fuerza alguna sobre éstas. Consecuentemte, la primera ley de Newton enunciada arriba debe ser reformulada para que la primera ley de Newton pueda ser corrobarada o refutada en un Universo (&nbsp;el nuestro&nbsp;) donde no es posible encontrar partículas en las cuales no actúe fuerza alguna sobre éstas. Para no alargar y complicar aún más este problema se enunciará a continuación la primera ley de Newton para que pueda ser corroborada o refutada en ambos tipos de Universo.</p>
+
+<p class="fuerte"><i>Toda partícula permanece en su estado de reposo o de movimiento rectilíneo uniforme si sobre la partícula no actúa fuerza alguna o si las fuerzas que actúan sobre la partícula están equilibradas.</i></p>
+
+<p>Pero, volvemos al tema inicial del artículo porque tal como está enunciada ahora la primera ley de Newton entonces se puede afirmar que en nuestro Universo la primera ley de Newton se deduce de la segunda ley de Newton, puesto que si las fuerzas que actúan sobre una partícula están equilibradas entonces la fuerza neta es igual a cero y, por lo tanto, la aceleración de la partícula es también igual a cero, lo que significa que la partícula está en un estado de reposo o de movimiento rectilíneo uniforme.</p>
+
+<p>Esto que parece ser una falla de la dinámica newtoniana, puede ser algo bueno, porque ahora es posible unificar la primera ley de Newton con la segunda ley de Newton (&nbsp;es decir, incluir la primera ley de Newton en la segunda ley de Newton&nbsp;) Luego para que la segunda ley de Newton pueda ser corroborada o refutada en un tipo de Universo en el cual es posible encontrar partículas sobre las cuales no actúe fuerza alguna, solamente habría que hacer la siguiente aclaración: en la segunda ley de Newton si sobre una partícula no actúa fuerza alguna entonces esto debe ser interpretado como si una fuerza neta igual a cero actúa sobre la partícula.</p>
+
+<h2 id="T2">Segunda ley de Newton</h2>
+
+<p class="fuerte"><i>Toda fuerza neta <span class="MathJax">\({\mathbf{F}}_i\)</span> que actúa sobre una partícula <span class="MathJax">\(i\)</span> de masa inercial <span class="MathJax">\(m_i\)</span> produce en la partícula <span class="MathJax">\(i\)</span> una aceleración <span class="MathJax">\({\vec{a}}_{\hspace{+0.045em}i}\)</span> de acuerdo a la siguiente ecuación: <span class="MathJax">\([ \, {\mathbf{F}}_i \,=\, m_i \, {\vec{a}}_{\hspace{+0.045em}i} \, ]\)</span></i></p>
+
+<p>En primer lugar, se hace la aclaración de que si sobre la partícula <span class="MathJax">\(i\)</span> no actúa fuerza alguna entonces esto debe ser interpretado como si una fuerza neta igual a cero <span class="MathJax">\({\mathbf{F}}_i\)</span> actúa sobre la partícula <span class="MathJax">\(i\)</span> (&nbsp;tal como se ha propuesto en la sección anterior y quedando, por lo tanto, la primera ley de Newton incluida desde un punto de vista lógico en la segunda ley de Newton&nbsp;)</p>
+
+<p>En segundo lugar, el autor hace la aclaración de que la fuerza neta de las fuerzas reales <span class="MathJax">\({\mathbf{F}}_i\)</span> está en negrita y que la aceleración ordinaria <span class="MathJax">\({\vec{a}}_{\hspace{+0.045em}i}\)</span> no está en negrita (&nbsp;sino con flecha vector&nbsp;) porque en la dinámica newtoniana toda fuerza real es invariante bajo transformaciones entre sistemas de referencias inerciales y no inerciales, en cambio toda aceleración ordinaria no es invariante bajo transformaciones entre sistemas de referencias inerciales y no inerciales (&nbsp;esto se explicará más detalladamente en una próxima sección&nbsp;)</p>
+
+<p>En tercer lugar, se deduce de la ecuación anterior que la masa inercial es una magnitud escalar pero hay que hacer la aclaración de que es una magnitud escalar positiva (&nbsp;no hay masas inerciales negativas, a pesar de que esto no refutaría la segunda ley de Newton, y tampoco se conciben masas inerciales iguales a cero, lo que sí complicaría bastante interpretar la segunda ley de Newton con partículas con masa inercial igual a cero&nbsp;)</p>
+
+<p>Finalmente, en la segunda ley de Newton se debe aclarar que la masa inercial es una constante característica de cada partícula (&nbsp;y esto se afirma como definición, no como principio empírico&nbsp;) y que el valor de la masa inercial de cada partícula debe ser obtenido por medio de la experincia (&nbsp;experimentalmente&nbsp;) puesto que este valor no está dado por la teoría.</p>
+
+<p>Ahora ¿ Por qué la masa inercial es una constante característica de toda partícula por definición y no porque así lo demuestra la experiencia ? Esto es tal vez díficil de entender, pero para que la dinámica newtoniana y sobre todo la segunda ley de Newton puedan ser enunciados empíricos se tiene la necesidad de establecer por teoría que la masa inercial de cualquier partícula es una constante característica de la partícula (&nbsp;y esto es así también con la carga eléctrica, la masa gravitatoria, etc.&nbsp;)</p>
+
+<p>Analicemos ahora la segunda ley de Newton para poder entender mejor lo afirmado en el párrafo anterior. Hasta ahora no hemos definido la magnitud "fuerza" (&nbsp;podemos inferir por lo dicho hasta aquí que la fuerza es una magnitud vectorial, así como lo es la aceleración ordinaria&nbsp;) Supongamos para facilitar bastante este asunto, que en toda partícula se observan experimentalmente flechas de colores que nacen en cada partícula y que tienen una longitud determinada y también una orientación determinada en el espacio, y que estás flechas son las fuerzas reales que actúan sobre las partícuas, representando los distintos tipos de colores de las flechas a los distintos tipos de fuerzas que hay en el Universo (&nbsp;gravitatoria, eléctrica, etc.&nbsp;) y que además se observa experimentalmente también una flecha negra que representa la fuerza neta (&nbsp;producto de las fuerzas reales y como la suma vectorial de todas las flechas de colores&nbsp;) que actúa en toda partícula del Universo.</p>
+
+<p>Por otro lado, hay que entender que todo enunciado que se postula como un enunciado empírico debe dar las herramientas teóricas necesarias para que éste pueda ser refutado o corroborado por la experiencia <a href="#R4">[R4]</a></p>
+
+<h2 id="T3">Tercera ley de Newton</h2>
+
+<p>En desarrollo ... </p>
+
+<h2 id="T4">Fuerzas de la Naturaleza</h2>
+
+<p>En desarrollo ... </p>
+
+<h2 id="O0">Observaciones Generales</h2>
+
+<p>En desarrollo ... </p>
+
+<h2 id="N0">Notas y Aclaraciones</h2>
+
+<p id="N1">[N1] La primera ley de Newton (&nbsp;y sobre todo de Galileo Galilei, claro está&nbsp;) tiene una enorme importancia histórica puesto que establece, al contrario de lo que postulaba la filosofía de Aristóteles, que una partícula para continuar en su estado de movimiento rectilíneo uniforme no necesita de ningún agente externo. Por lo tanto, esta ley cambió totalmente la manera de concebir el Universo. Pero pasaron más de 300 años desde la publicación de Newton <a href="#R0">[R1]</a> y este artículo es un análisis contemporáneo. Además, la primera ley de Newton no se postuló tal como se postula en este artículo, puesto que este artículo no pretende ser una descripción histórica detallada de la mecánica clásica sino más bien un análisis lógico, teórico y filosófico de la mecánica clásica.</p>
+
+<h2 id="R0">Referencias y Bibliografía</h2>
+
+<p id="R1">[R1] I. Newton, Principios matemáticos de la filosofía natural, (1687).</p>
+
+<p id="R2">[R2] H. Fernández, Curso de relatividad especial, (2016).</p>
+
+<p id="R3">[R3] I. Copi, Introducción a la lógica, (2011).</p>
+
+<p id="R4">[R4] K. Popper, La lógica de la investigación científica, (1934).</p>
+
+<p id="R5">[R5] T. Kuhn, La estructura de las revoluciones científicas, (1962).</p>
+
+<p id="R6">[R6] A. Einstein, Sobre la teoría de la relatividad especial y general, (1916).</p>
+
+<p id="R7">[R7] A. Einstein, Sobre la electrodinámica de los cuerpos en movimiento, (1905).</p>
+
+<p id="B1">[B1] R. Descartes, Discurso del método, (1637).</p>
+
+<p id="B2">[B2] D. Hume, Tratado de la naturaleza humana, (1739).</p>
+
+<p id="B3">[B3] I. Kant, Crítica de la razón pura, (1781).</p>
+
+<p id="B4">[B4] G. Hegel, Fenomenología del espíritu, (1807).</p>
+
+<p id="B5">[B5] A. Carpio, Principios de filosofía, (1974).</p>
+
+<h2 id="A0">Anexos y Apéndices</h2>
+
+<p>En desarrollo ... <br><br></p>
+
+<p style="color: #c63636;"><i>Continuará, artículo en constante revisión y evolución. Terminar este artículo llevará varios meses, tal vez años (&nbsp;paciencia, que el autor por desgracia no es una IA&nbsp;)</i></p>
+
+<p style="color: #c63636;"><i>Nota 1 : Haciendo clic en el título origen del artículo se puede cambiar la pantalla en modo oscuro o claro.</i></p>
+
+<p style="color: #c63636;"><i>Nota 2 : Haciendo clic en el título "Introducción" se puede cambiar la fuente en modo sans-serif o serif.</i></p>
+
+<p style="color: #c63636;"><i>Nota 3 : Autor: Alejandro A. Torassa (&nbsp;ORCID: <a href='https://orcid.org/0000-0002-1389-247X'>0000-0002-1389-247X</a>&nbsp;)</i></p>
+
+<p style="color: #c63636; margin-bottom: +3.54em;"><i>Nota 4 : Comentarios y Sugerencias: <a href='https://aphysica.github.io/torassa/abs/200'>Contacto</a> (&nbsp;Gracias!&nbsp;)</i></p>
+
+			</section>
+		</div>
+	</div>
+	<footer>
+		<p><a href='https://github.com/aphysica'>&#160;github.com&#160;</a></p>
+	</footer>
+
+<script>
+
+let vaEA = document.querySelectorAll('a').length;
+let vaH2 = document.querySelectorAll('h2').length;
+let vaSU = document.getElementsByClassName('suave').length;
+let vaFU = document.getElementsByClassName('fuerte').length;
+let vaMJ = document.getElementsByClassName('MathJax').length;
+
+// MODO OSCURO - CLARO
+
+themeValue = 2;
+
+function myTheme() {
+	if ( themeValue == 2 ) {
+		document.body.style.color = "#efefef";
+		document.body.style.backgroundColor = "#303030";
+		document.getElementById("myTitle").style.color = "#4581b4";
+		let h = 0;
+		while ( h < vaH2 ) {
+			document.getElementsByTagName("h2")[h].style.color = "#b2caf5";
+			h = h + 1;
+		};
+		let f = 0;
+		while ( f < vaFU ) {
+			document.getElementsByClassName("fuerte")[f].style.color = "#efefef";
+			f = f + 1;
+		};
+		let a = 0;
+		while ( a < vaEA ) {
+			document.getElementsByTagName("a")[a].style.color = "#4581b4";
+			a = a + 1;
+		};
+		themeValue = 1;
+	} else {
+		document.body.style.color = "#454545";
+		document.body.style.backgroundColor = "#ffffff";
+		document.getElementById("myTitle").style.color = "#4581b4";
+		let h = 0;
+		while ( h < vaH2 ) {
+			document.getElementsByTagName("h2")[h].style.color = "#333333";
+			h = h + 1;
+		};
+		let f = 0;
+		while ( f < vaFU ) {
+			document.getElementsByClassName("fuerte")[f].style.color = "#151515";
+			f = f + 1;
+		};
+		let a = 0;
+		while ( a < vaEA ) {
+			document.getElementsByTagName("a")[a].style.color = "#2883f3";
+			a = a + 1;
+		};
+		themeValue = 2;
+	};
+};
+
+// MODO SANS-SERIF - SERIF
+
+fontValue = 2;
+
+function myFont() {
+	if ( fontValue == 2 ) {
+		document.body.style.fontFamily = "'Poppins', ui-sans-serif, Arial, sans-serif";
+		document.body.style.lineHeight = "1.5";
+		fontValue = 1;
+	} else {
+		document.body.style.fontFamily = "'Spectral', ui-serif, Georgia, serif";
+		document.body.style.lineHeight = "1.4";
+		fontValue = 2;
+	};
+	myResponsive();
+};
+
+// RESPONSIVE
+
+function myResponsive() {
+	let widthMain = window.innerWidth;
+	if ( fontValue == 2 ) {
+		// FONT-SIZE
+		let valueFS = myCalculation( widthMain, 240, 810, 125, 125 ) ;
+		document.body.style.fontSize = valueFS + "%" ;
+		// FONT-SIZE H1
+		let valueH1 = myCalculation( widthMain, 240, 810, 225, 225 ) ;
+		document.getElementById("myTitle").style.fontSize = valueH1 + "%" ;
+		// FONT-SIZE H2
+		let valueH2 = myCalculation( widthMain, 240, 810, 160, 160 ) ;
+		let i = 0;
+		while ( i < vaH2 ) {
+			document.getElementsByTagName("h2")[i].style.fontSize = valueH2 + "%" ;
+			i = i + 1;
+		};
+		// FONT-SIZE MATHJAX
+		let valueMJ = myCalculation( widthMain, 240, 810, 105, 105 ) ;
+		let m = 0;
+		while ( m < vaMJ * 2 ) {
+			document.getElementsByClassName("MathJax")[m].style.fontSize = valueMJ + "%" ;
+			m = m + 1;
+		};
+		// MY SPACE ABS
+		// let valueMS = myCalculation( widthMain, 240, 810, 1.5, 1.5 ) ;
+		// document.getElementById("mySpace").style.margin = "-" + valueMS + "em" + " " + 0 + " " + "+" + valueMS * 1.4 + "em" + " " + 0 ;
+	};
+	if ( fontValue == 1 ) {
+		// FONT-SIZE
+		let valueFS = myCalculation( widthMain, 240, 810, 108, 108 ) ;
+		document.body.style.fontSize = valueFS + "%" ;
+		// FONT-SIZE H1
+		let valueH1 = myCalculation( widthMain, 240, 810, 240, 240 ) ;
+		document.getElementById("myTitle").style.fontSize = valueH1 + "%" ;
+		// FONT-SIZE H2
+		let valueH2 = myCalculation( widthMain, 240, 810, 180, 180 ) ;
+		let i = 0;
+		while ( i < vaH2 ) {
+			document.getElementsByTagName("h2")[i].style.fontSize = valueH2 + "%" ;
+			i = i + 1;
+		};
+		// FONT-SIZE MATHJAX
+		let valueMJ = myCalculation( widthMain, 240, 810, 116.4, 116.4 ) ;
+		let m = 0;
+		while ( m < vaMJ * 2 ) {
+			document.getElementsByClassName("MathJax")[m].style.fontSize = valueMJ + "%" ;
+			m = m + 1;
+		};
+		// MY SPACE ABS
+		// let valueMS = myCalculation( widthMain, 240, 810, 1.5, 1.5 ) ;
+		// document.getElementById("mySpace").style.margin = "-" + valueMS + "em" + " " + 0 + " " + "+" + valueMS * 1.4 + "em" + " " + 0 ;
+	};
+};
+
+// RESPONSIVE CALCULATION
+
+function myCalculation ( X, Xa, Xb, Ya, Yb ) {
+	if ( Xa !== Xb ) {
+		if ( ( Xa < Xb ) && ( X <= Xa ) ) { let Y = Number ( Ya ); return Y; };
+		if ( ( Xa < Xb ) && ( X >= Xb ) ) { let Y = Number ( Yb ); return Y; };
+		if ( ( Xa > Xb ) && ( X >= Xa ) ) { let Y = Number ( Ya ); return Y; };
+		if ( ( Xa > Xb ) && ( X <= Xb ) ) { let Y = Number ( Yb ); return Y; };
+		if ( ( X > Xa && X < Xb ) || ( X > Xb && X < Xa ) ) {
+			let Y = Number ( [ Yb * ( X - Xa ) + Ya * ( Xb - X ) ] / [ ( Xb - Xa ) ] );
+			return Y;
+		};
+	} else {
+		return false;
+	};
+};
+
+setTimeout( function() { myResponsive() }, 600 );
+window.addEventListener( "resize", myResponsive );
+
+</script>
+
+</body>
+</html>
