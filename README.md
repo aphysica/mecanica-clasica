@@ -1,6 +1,6 @@
 # Mecánica Clásica
 
-Un análisis lógico de la mecánica clásica.
+Un análisis lógico, epistemológico y ontológico de la mecánica clásica.
 
 ## Website
 
