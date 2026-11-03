@@ -1,0 +1,32 @@
+{
+  "title": "Mecánica Clásica",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "creators": [
+    {
+      "name": "Alejandro A. Torassa",
+      "orcid": "0000-0002-1389-247X"
+    }
+  ],
+  "description": "<p>Un análisis lógico, epistemológico y ontológico de la mecánica clásica.</p>\n<p>https://aphysica.github.io/mecanica-clasica/</p>\n<p>Alejandro A. Torassa</p>\n<p>doi:10/rwb5</p>\n<p>&nbsp;</p>",
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "languages": [
+    {
+      "id": "spa"
+    }
+  ],
+  "subjects": [
+    {"subject": "Physics"},
+    {"subject": "Classical Mechanics"},
+    {"subject": "Relational Mechanics"}
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.23864259",
+      "relation": "isoriginalformof",
+      "scheme": "doi",
+      "resource_type": "publication-preprint"
+    }
+  ]
+}
