@@ -6,6 +6,6 @@ Un análisis lógico, epistemológico y ontológico de la mecánica clásica.
 
 [https://aphysica.github.io/mecanica-clasica](https://aphysica.github.io/mecanica-clasica/)
 
-## Address
+## Licencia
 
-Buenos Aires, Argentina.
+[CC Atribución 4.0](https://creativecommons.org/licenses/by/4.0/)
