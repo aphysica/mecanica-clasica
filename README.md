@@ -8,4 +8,4 @@ Un análisis lógico, epistemológico y ontológico de la mecánica clásica.
 
 ## Licencia
 
-[CC Atribución 4.0](https://creativecommons.org/licenses/by/4.0/)
+[Licencia Creative Commons Atribución 4.0](https://creativecommons.org/licenses/by/4.0/)
