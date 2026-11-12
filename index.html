@@ -135,6 +135,9 @@
 				padding: 0 0.3em;
 				max-width: 100%;
 			}
+			ul {
+			padding-left: 1em;
+			}
 		}
 	</style>
 </head>
@@ -303,9 +306,9 @@
 
 <p style="color: #c63636;">TEXTO PROVISORIO</p>
 
-<p>En el desarrollo didáctico habitual de la física suele calificarse a expresiones como la Ley de Gravitación Universal de Newton <span class="MathJax">\(( \, {\mathbf{FG}}_{\hspace{+0.045em}ij} \,=\, \dots \, )\)</span> o la Ley de Coulomb <span class="MathJax">\(( \, {\mathbf{FE}}_{\hspace{+0.045em}ij} \,=\, \dots \, )\)</span> como "leyes empíricas descubiertas experimentalmente". Sin embargo, bajo un análisis epistemológico riguroso, <b>dichas formulaciones no operan como leyes empíricas inductivas, sino como definiciones constitutivas del modelo físico</b>.</p>
+<p>En el desarrollo didáctico habitual de la física suele calificarse a expresiones como la ley de gravitación universal de Newton <span class="MathJax">\(( \, {\mathbf{FG}}_{\hspace{+0.045em}ij} \,=\, \dots \, )\)</span> o la ley de Coulomb <span class="MathJax">\(( \, {\mathbf{FE}}_{\hspace{+0.045em}ij} \,=\, \dots \, )\)</span> como "leyes empíricas descubiertas experimentalmente". Sin embargo, bajo un análisis epistemológico riguroso, <b>dichas formulaciones no operan como leyes empíricas inductivas, sino como definiciones constitutivas del modelo físico</b>.</p>
 
-<p>La Ley de Gravitación Universal de Newton o la Ley de Coulomb solamente pueden ser principios empíricos si previamente se definen: <span class="MathJax">\(( \, {\mathbf{FG}}_{\hspace{+0.045em}ij} \,\doteq\, \dots \, )\)</span> y <span class="MathJax">\(( \, {\mathbf{FE}}_{\hspace{+0.045em}ij} \,\doteq\, \dots \, )\)</span> ...&nbsp;en desarrollo.</p>
+<p>La ley de gravitación universal de Newton o la ley de Coulomb solamente pueden ser principios empíricos si previamente se definen: <span class="MathJax">\(( \, {\mathbf{FG}}_{\hspace{+0.045em}ij} \,\doteq\, \dots \, )\)</span> y <span class="MathJax">\(( \, {\mathbf{FE}}_{\hspace{+0.045em}ij} \,\doteq\, \dots \, )\)</span> ...&nbsp;en desarrollo.</p>
 
 <p>...</p>
 
@@ -320,31 +323,27 @@
 <p>Desde una perspectiva puramente lógica y computacional, la formulación de la mecánica clásica puede entenderse como un proceso progresivo de <b>compresión y refactorización de código</b>. Lejos de restar mérito a la arquitectura newtoniana, esta lectura pone en evidencia la brillantez de su diseño: la creación de abstracciones capaces de sintetizar una cantidad inmensa de datos empíricos en una interfaz elegante y ejecutable.</p>
 
 <p>Para comprender por qué las expresiones particulares (como la atracción gravitatoria o la fuerza electrostática) son <b>definiciones de modelo</b> y no leyes fundamentales independientes del movimiento, basta con observar la evolución de la ecuación dinámica en tres niveles de abstracción:</p>
-
-<ul>
 	
-<li><b>1. El código fuente crudo (Ecuación totalmente descomprimida)</b></li>
+<b>1. El código fuente crudo (Ecuación totalmente descomprimida)</b>
 <p>En el nivel más elemental e intrínseco, la realidad empírica de un sistema de <span class="MathJax">\(N\)</span> partículas no conoce de agrupaciones abstractas. La ecuación de movimiento real para una partícula individual <span class="MathJax">\(i\)</span> se presenta de forma totalmente "descomprimida", detallando cada una de las interacciones recíprocas individuales:</p>
 
 <p><span class="MathJax">\( \mathbf{F1}_{i1} + \mathbf{F1}_{i2} + \dots + \mathbf{F1}_{iN} \, + \)</span><br><span class="MathJax">\( \mathbf{F2}_{i1} + \mathbf{F2}_{i2} + \dots + \mathbf{F2}_{iN} \, + \)</span><br><span class="MathJax">\( \dots \, + \)</span><br><span class="MathJax">\( \mathbf{FT}_{i1} + \mathbf{FT}_{i2} + \dots + \mathbf{FT}_{iN} \)</span><br><span class="MathJax">\( = \, m_i \, {\vec{a}}_{\hspace{+0.045em}i} \)</span></p>
 
 <p>Este es el "código fuente plano": conceptualmente exacto y puramente empírico, pero operacionalmente intratable. Si intentáramos calcular el movimiento del universo en este nivel, necesitaríamos invocar una línea de código explícita para cada par de partículas existente.</p>
 
-<li><b>2. Creación de funciones y modularización (Definiciones de las Fuerzas de la Naturaleza)</b></li>
+<b>2. Creación de funciones y modularización (Definiciones de las Fuerzas de la Naturaleza)</b>
 <p>Para evitar la redundancia infinita, la física teórica refactoriza el código agrupando comportamientos idénticos en <b>módulos o funciones reutilizables</b>. Aquí es donde nacen las llamadas "fuerzas de la naturaleza". Por ejemplo, la ley de gravitación universal no constituye un axioma de la dinámica en sí mismo, sino la definición del cuerpo de una función matemática que encapsula un tipo específico de interacción a distancia:</p>
 
-<p><span class="MathJax">\( \text{function } {\mathbf{FG}}_{\hspace{+0.045em}ij}(m_i, m_j, {{\vec{r}}}_{ij}) \,\doteq\, -G \frac{m_i m_j}{r_{ij}^2} \hat{{\vec{r}}}_{ij} \)</span></p>
+<p><span class="MathJax">\( \text{function } {\mathbf{FG}}_{\hspace{+0.045em}ij}(m_i, m_j, {{\vec{r}}}_{ij}) \,\doteq\, -G \frac{m_i m_j}{r_{ij}^2} \hat{{{r}}}_{ij} \)</span></p>
 
 <p>Al definir e invocar estos módulos (gravitatorios, electrostáticos, etc.), el código original se semi-comprime, reduciendo la sumatoria de interacciones individuales a un conjunto de fuerzas clasificadas por su origen físico:</p>
 
 <p><span class="MathJax">\( \sum \mathbf{FG}_{\hspace{+0.045em}i} + \sum \mathbf{FE}_{\hspace{+0.045em}i} + \dots + \sum \mathbf{FT}_{i} \, = \, m_i \, {\vec{a}}_{\hspace{+0.045em}i} \)</span></p>
 
-<li><b>3. Optimización y abstracción máxima (La Fuerza Neta)</b></li>
+<b>3. Optimización y abstracción máxima (La Fuerza Neta)</b>
 <p>Finalmente, el marco newtoniano alcanza su nivel más alto de elegancia al encapsular todo el lado izquierdo de la ecuación en una única variable de interfaz: la <b>fuerza neta</b> <span class="MathJax">\( ( \mathbf{F}_{i} \,\doteq\, \sum \mathbf{FG}_{\hspace{+0.045em}i} + \sum \mathbf{FE}_{\hspace{+0.045em}i} + \dots + \sum \mathbf{FT}_{i} ) \)</span>. La ecuación de movimiento adquiere su forma célebre y sintética:</p>
 
 <p><span class="MathJax">\( {\mathbf{F}}_i \,=\, m_i \, {\vec{a}}_{\hspace{+0.045em}i} \)</span></p>
-
-</ul>
 
 <p>Bajo este prisma epistemológico, resulta evidente que la segunda ley es el <b>kernel o motor de ejecución principal</b>, mientras que la fuerza de gravedad y el resto de las interacciones son <b>definiciones de entrada (inputs)</b> creadas por los físicos para alimentar dicho motor. Confundir una definición de fuerza con una ley fundamental de la dinámica equivale a confundir el cuerpo de una función auxiliar con el propio compilador.</p>
 
@@ -354,7 +353,7 @@
 
 <p>...</p>
 
-<p>Finalmente, ¿cómo evoluciona la mecánica newtoniana y, por lo tanto, la mecánca clásica en general?&nbsp;...</p>
+<p>Finalmente, ¿cómo evoluciona la mecánica newtoniana y, por lo tanto, la mecánica clásica en general?&nbsp;...</p>
 
 <p>En desarrollo&nbsp;...</p>
 
