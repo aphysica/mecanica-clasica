@@ -15,9 +15,13 @@
 	<!-- Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Spectral:wght@400;700&amp;display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Spectral:wght@400;700&display=swap" rel="stylesheet">
 	<script>
 		MathJax = {
+			loader: { load: ['ui/lazy'] },
+			options: {
+				lazyMargin: '800px'
+			},
 			tex: {
 				inlineMath: [['$', '$'], ['\\(', '\\)']]
 			}
@@ -28,6 +32,10 @@
 	<style>
 		*, *::before, *::after {
 			box-sizing: border-box;
+		}
+		html, body {
+			max-width: 100%;
+			overflow-x: hidden;
 		}
 		html {
 			border: 0;
@@ -47,22 +55,27 @@
 			--color-h2: #333333;
 			--color-strong: #151515;
 			--color-part: #363636;
+			--color-note: #c63636;
+			--color-border: #cccccc;
 			--color-link: #2883f3;
+
 			--font-family: 'Spectral', ui-serif, Georgia, serif;
 			--line-height: 1.4;
 			--fs-body: 125%;
 			--fs-title: 225%;
 			--fs-h2: 160%;
 			--fs-mathjax: 105%;
-			--margin-space: -1.2em 0 3em 0;
-			
+
+			max-width: 75ch;
+			margin: 0 auto;
+			padding: 1rem 1.5rem;
+
 			font-family: var(--font-family);
 			line-height: var(--line-height);
 			background-color: var(--color-bg);
 			color: var(--color-text);
 			font-size: var(--fs-body);
 			text-align: justify;
-			
 			transition: background-color 0.3s ease, color 0.3s ease, font-family 0.3s ease;
 		}
 		body.dark-mode {
@@ -72,7 +85,9 @@
 			--color-h2: #b2caf5;
 			--color-strong: #efefef;
 			--color-part: #dfdfdf;
-			--color-link: #4581b4;
+			--color-note: #f28b82;
+			--color-border: #555555;
+			--color-link: #6ea8fe;
 		}
 		body.sans-serif {
 			--font-family: 'Poppins', ui-sans-serif, Arial, sans-serif;
@@ -81,22 +96,18 @@
 			--fs-title: 240%;
 			--fs-h2: 180%;
 			--fs-mathjax: 116.4%;
-			--margin-space: -1.5em 0 2.1em 0;
+		}
+		#myTitle, h2 {
+			text-align: left;
+			transition: color 0.3s ease;
 		}
 		#myTitle {
 			color: var(--color-title);
 			font-size: var(--fs-title);
-			text-align: left;
-			transition: color 0.3s ease;
 		}
 		h2 {
 			color: var(--color-h2);
 			font-size: var(--fs-h2);
-			text-align: left;
-			transition: color 0.3s ease;
-		}
-		#mySpace {
-			margin: var(--margin-space) !important;
 		}
 		.strong {
 			color: var(--color-strong);
@@ -104,25 +115,16 @@
 		.part {
 			color: var(--color-part);
 		}
+		.note {
+			color: var(--color-note);
+			transition: color 0.3s ease;
+		}
 		a {
 			outline: none;
 			color: var(--color-link);
 			text-decoration: none;
 			word-break: break-word;
 			overflow-wrap: break-word;
-		}
-		.container {
-			display: block;
-			max-width: 74%;
-			margin: auto;
-			width: 100%;
-		}
-		.content {
-			display: block;
-			width: 100%;
-		}
-		.weak {
-			color: #666666;
 		}
 		ul {
 			list-style: none;
@@ -144,57 +146,92 @@
 		}
 		.liver {
 			margin-bottom: 0.45em;
-		 }
+		}
 		.livex {
 			margin-bottom: 0.93em;
-		 }
+		}
 		mjx-container {
 			font-size: var(--fs-mathjax) !important;
 		}
+		p mjx-container, li mjx-container {
+			max-width: 100%;
+			overflow-x: auto;
+			overflow-y: hidden;
+			vertical-align: middle;
+		}
 		.math-block {
 			display: block;
+			width: 100%;
+			max-width: 100%;
 			text-align: left;
 			overflow-x: auto;
 			overflow-y: hidden;
+			overflow-wrap: anywhere;
+			word-break: break-word;
+		}
+		.toolbar {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 0.5em;
+			margin: 2.5em 0;
+		}
+		.toolbar button {
+			background: transparent;
+			color: var(--color-text);
+			border: 1px solid var(--color-border);
+			border-radius: 4px;
+			padding: 0.25em 0.65em;
+			font-family: inherit;
+			font-size: 1.02rem;
+			cursor: pointer;
+			opacity: 0.85;
+			transition: opacity 0.2s ease, border-color 0.3s ease;
+		}
+		.toolbar button:hover {
+			opacity: 1;
+			border-color: var(--color-title);
 		}
 		footer {
+			margin-top: 3em;
 			padding: 0.6em 0;
 			text-align: center;
-			border-top: 1px solid #cccccc;
+			border-top: 1px solid var(--color-border);
 		}
-		@media (max-width: 810px) {
-			.container {
-				box-sizing: border-box;
-				padding: 0 0.3em;
-				max-width: 100%;
+		@media (max-width: 600px) {
+			body {
+				padding: 0.75rem;
 			}
 		}
 	</style>
 </head>
 <body>
-	<div class="container">
-		<div class="content">
-			<section id="page">
 
-<h1 id="myTitle" style="cursor:pointer" onclick="myTheme();">Mecánica Clásica</h1>
+<script>
+	if (localStorage.getItem("theme") === "dark") document.body.classList.add("dark-mode");
+	if (localStorage.getItem("font") === "sans") document.body.classList.add("sans-serif");
+	const savedZoom = localStorage.getItem("zoom");
+	if (savedZoom) document.documentElement.style.fontSize = savedZoom + "px";
+</script>
 
-<p id="mySpace" style="margin: -1.2em 0 3em 0;">Un análisis lógico, epistemológico y ontológico de la mecánica clásica.</p>
+<h1 id="myTitle">Mecánica Clásica</h1>
 
-<p style="color: #c63636;"><i>17/11/2026 : Lo nuevo : Fuerzas de la Naturaleza, Tercera Ley de Newton, Segunda Ley de Newton, Anexos y Apéndices, y Primera Ley de Newton.</i></p>
+<p>Un análisis lógico, epistemológico y ontológico de la mecánica clásica.</p>
 
-<p style="color: #c63636;"><i>Artículo en constante revisión y evolución. Terminar este artículo llevará varios años.</i></p>
+<div class="toolbar">
+	<button id="btnTheme" type="button" onclick="myTheme();">Oscuro</button>
+	<button id="btnFont" type="button" onclick="myFont();">Sans-serif</button>
+	<button type="button" onclick="changeSize(-1);" title="Reducir letra">A−</button>
+	<button type="button" onclick="changeSize(1);" title="Aumentar letra">A+</button>
+</div>
 
-<p style="color: #c63636;"><i>Nota 1: Haciendo clic en el título origen del artículo se puede cambiar la pantalla en modo oscuro o claro.</i></p>
+<p class="note"><i>17/11/2026 : Lo nuevo : Fuerzas de la Naturaleza, Tercera Ley de Newton, Segunda Ley de Newton, Anexos y Apéndices, y Primera Ley de Newton.</i></p>
+<p class="note"><i>Artículo en constante revisión y evolución, sin fecha de cierre aún.</i></p>
+<p class="note"><i>Autor: Alejandro A. Torassa (ORCID: <a href='https://orcid.org/0000-0002-1389-247X'>0000-0002-1389-247X</a>)</i></p>
+<p class="note"><i>Comentarios y Sugerencias: <a href='https://aphysica.github.io/torassa/abs/200'>Contacto</a> (¡Gracias!)</i></p>
+<p class="note" style="margin-bottom: 3em;"><i>(&nbsp;v1.0.4 b&nbsp;) : <a href='https://doi.org/rwb5'>https://doi.org/rwb5</a></i></p>
 
-<p style="color: #c63636;"><i>Nota 2: Haciendo clic en el título "Introducción" se puede cambiar la fuente en modo sans-serif o serif.</i></p>
-
-<p style="color: #c63636;"><i>Nota 3: Autor: Alejandro A. Torassa (ORCID: <a href='https://orcid.org/0000-0002-1389-247X'>0000-0002-1389-247X</a>)</i></p>
-
-<p style="color: #c63636;"><i>Nota 4: Comentarios y Sugerencias: <a href='https://aphysica.github.io/torassa/abs/200'>Contacto</a> (¡Gracias!)</i></p>
-
-<p style="color: #c63636; margin-bottom: 3em;"><i>(&nbsp;v1.0.4&nbsp;) : <a href='https://doi.org/rwb5'>https://doi.org/rwb5</a></i></p>
-
-<h2 id="myIntro" style="cursor:pointer" onclick="myFont();">Introducción</h2>
+<h2>Introducción</h2>
 
 <p>La mecánica clásica se divide según su formalismo matemático en: mecánica newtoniana (también llamada mecánica vectorial), mecánica d'alembertiana (también llamada mecánica relacional), mecánica lagrangiana y mecánica hamiltoniana (todos estos modelos son observacionalmente equivalentes entre sí). Este artículo presenta un análisis lógico, epistemológico y ontológico de la mecánica newtoniana en particular y de la física teórica en general (principalmente, este artículo presenta un análisis lógico, epistemológico y ontológico de la dinámica newtoniana de la partícula para sistemas de referencia inerciales y no inerciales).</p>
 
@@ -518,11 +555,11 @@
 
 <p class="math-block">${\mathbf{F}{\scriptstyle{\mathrm{G}}}}_{\hspace{+0.045em}ij} \,\doteq\, -\,G \, \dfrac{m_i \, m_j}{\|\vec{r}_i - \vec{r}_j\|^3} \, (\vec{r}_i - \vec{r}_j)$</p>
 
-<p>donde $G$ se define <i>a priori</i> como una constante escalar positiva e intrínseca de la interacción (&nbsp;denominada históricamente <i>constante de gravitación universal</i>&nbsp;) cuyo valor numérico debe obtenerse experimentalmente (&nbsp;$G \approx 6.674 \times 10^{-11}\,\text{N}\cdot\text{m}^2/\text{kg}^2$&nbsp;); $m_i$ y $m_j$ representan las <b>masas gravitatorias</b> de las partículas, definidas <i>a priori</i> como parámetros escalares intrínsecos propios de cada partícula cuyo valor numérico debe obtenerse también experimentalmente; y $\vec{r}_i$, $\vec{r}_j$ son sus vectores de posición instantáneos respecto del origen del sistema de referencia $( \, \vec{r}_i \neq \vec{r}_j \, )$.</p>
+<p>donde $G$ se define <i>a priori</i> como una constante escalar positiva e intrínseca de la interacción (&nbsp;denominada históricamente <i>constante de gravitación universal</i>&nbsp;) cuyo valor numérico debe obtenerse experimentalmente $( \, G \approx 6.674 \times 10^{-11}\,\text{N}\cdot\text{m}^2/\text{kg}^2 \, )$; $m_i$ y $m_j$ representan las <b>masas gravitatorias</b> de las partículas, definidas <i>a priori</i> como parámetros escalares intrínsecos propios de cada partícula cuyo valor numérico debe obtenerse también experimentalmente; y $\vec{r}_i$, $\vec{r}_j$ son sus vectores de posición instantáneos respecto del origen del sistema de referencia $( \, \vec{r}_i \neq \vec{r}_j \, )$.</p>
 
-<p>La evidencia empírica muestra que la masa gravitatoria es siempre estrictamente positiva $(m \gt 0)$ —dando lugar solamente a atracciones—, que es una magnitud aditiva (la masa gravitatoria de un sistema compuesto equivale a la suma aritmética de las masas gravitatorias individuales de sus partículas constituyentes) y que es universalmente proporcional a la masa inercial (&nbsp;principio de equivalencia débil, que permite igualar ambas escalas mediante una elección adecuada de $G$&nbsp;).</p>
+<p>La evidencia empírica muestra que la masa gravitatoria es siempre estrictamente positiva $( \, m \gt 0 \,)$ —dando lugar solamente a atracciones—, que es una magnitud aditiva (&nbsp;la masa gravitatoria de un sistema compuesto equivale a la suma aritmética de las masas gravitatorias individuales de sus partículas constituyentes&nbsp;) y que es universalmente proporcional a la masa inercial (&nbsp;principio de equivalencia débil, que permite igualar ambas escalas mediante una elección adecuada de $G$&nbsp;).</p>
 
-<p>Asimismo, al depender exclusivamente de escalares invariantes y dado que en la cinemática clásica las posiciones relativas $(\vec{r}_i - \vec{r}_j)$ son invariantes ante cualquier cambio de sistema de referencia, se deduce inmediatamente que el vector ${\mathbf{F}{\scriptstyle{\mathrm{G}}}}_{\hspace{+0.045em}ij}$ conserva su invarianza plena en todo sistema de referencia.</p>
+<p>Asimismo, al depender exclusivamente de escalares invariantes y dado que en la cinemática clásica las posiciones relativas $( \, \vec{r}_i - \vec{r}_j \, )$ son invariantes ante cualquier cambio de sistema de referencia, se deduce inmediatamente que el vector ${\mathbf{F}{\scriptstyle{\mathrm{G}}}}_{\hspace{+0.045em}ij}$ conserva su invarianza plena en todo sistema de referencia.</p>
 
 <p>Por otro lado, al intercambiar los índices $i \leftrightarrow j$, la estructura algebraica de la definición arroja directamente ${\mathbf{F}{\scriptstyle{\mathrm{G}}}}_{j\hspace{+0.090em}i} = - \, {\mathbf{F}{\scriptstyle{\mathrm{G}}}}_{i\hspace{-0.030em}j}$ a lo largo de la recta que une ambas partículas, satisfaciendo así la tercera ley de Newton en su <b>versión fuerte</b> (&nbsp;y, por ende, en su versión débil&nbsp;).</p>
 
@@ -536,11 +573,11 @@
 
 <p class="math-block">${\mathbf{F}{\scriptstyle{\mathrm{E}}}}_{\hspace{+0.045em}ij} \,\doteq\, k_e \, \dfrac{q_i \, q_j}{\|\vec{r}_i - \vec{r}_j\|^3} \, (\vec{r}_i - \vec{r}_j)$</p>
 
-<p>donde $k_e$ se define <i>a priori</i> como una constante escalar positiva e intrínseca de la interacción (&nbsp;denominada históricamente <i>constante de Coulomb</i>&nbsp;) cuyo valor numérico debe obtenerse experimentalmente (&nbsp;$k_e \approx 8.987 \times 10^{9}\,\text{N}\cdot\text{m}^2/\text{C}^2$&nbsp;); $q_i$ y $q_j$ representan las <b>cargas eléctricas</b> de las partículas, definidas <i>a priori</i> como parámetros escalares intrínsecos propios de cada partícula cuyo valor numérico debe obtenerse también experimentalmente; y $\vec{r}_i$, $\vec{r}_j$ son sus vectores de posición instantáneos respecto del origen del sistema de referencia $( \, \vec{r}_i \neq \vec{r}_j \, )$.</p>
+<p>donde $k_e$ se define <i>a priori</i> como una constante escalar positiva e intrínseca de la interacción (&nbsp;denominada históricamente <i>constante de Coulomb</i>&nbsp;) cuyo valor numérico debe obtenerse experimentalmente $( \, k_e \approx 8.987 \times 10^{9}\,\text{N}\cdot\text{m}^2/\text{C}^2 \, )$; $q_i$ y $q_j$ representan las <b>cargas eléctricas</b> de las partículas, definidas <i>a priori</i> como parámetros escalares intrínsecos propios de cada partícula cuyo valor numérico debe obtenerse también experimentalmente; y $\vec{r}_i$, $\vec{r}_j$ son sus vectores de posición instantáneos respecto del origen del sistema de referencia $( \, \vec{r}_i \neq \vec{r}_j \, )$.</p>
 
-<p>La evidencia empírica indica que la carga eléctrica puede ser positiva, negativa o nula ($q \in \mathbb{R}$), dando lugar tanto a repulsiones como a atracciones (o a ausencia de interacción electrostática cuando alguna de las cargas es neutra), y que es una magnitud aditiva (la carga eléctrica de un sistema compuesto equivale a la suma algebraica de las cargas individuales de sus partículas constituyentes).</p>
+<p>La evidencia empírica muestra que la carga eléctrica puede ser positiva, negativa o nula $( \, q \in \mathbb{R} \, )$, dando lugar tanto a repulsiones como a atracciones (&nbsp;o a ausencia de interacción electrostática cuando alguna de las cargas es neutra&nbsp;), y que es una magnitud aditiva (&nbsp;la carga eléctrica de un sistema compuesto equivale a la suma algebraica de las cargas individuales de sus partículas constituyentes&nbsp;).</p>
 
-<p>Asimismo, al depender exclusivamente de escalares invariantes y dado que en la cinemática clásica las posiciones relativas $(\vec{r}_i - \vec{r}_j)$ son invariantes ante cualquier cambio de sistema de referencia, se deduce inmediatamente que el vector ${\mathbf{F}{\scriptstyle{\mathrm{E}}}}_{\hspace{+0.045em}ij}$ conserva su invarianza plena en todo sistema de referencia.</p>
+<p>Asimismo, al depender exclusivamente de escalares invariantes y dado que en la cinemática clásica las posiciones relativas $( \, \vec{r}_i - \vec{r}_j \, )$ son invariantes ante cualquier cambio de sistema de referencia, se deduce inmediatamente que el vector ${\mathbf{F}{\scriptstyle{\mathrm{E}}}}_{\hspace{+0.045em}ij}$ conserva su invarianza plena en todo sistema de referencia.</p>
 
 <p>Por otro lado, al intercambiar los índices $i \leftrightarrow j$, la estructura algebraica de la definición arroja directamente ${\mathbf{F}{\scriptstyle{\mathrm{E}}}}_{j\hspace{+0.090em}i} = - \, {\mathbf{F}{\scriptstyle{\mathrm{E}}}}_{i\hspace{-0.030em}j}$ a lo largo de la recta que une ambas partículas, satisfaciendo así la tercera ley de Newton en su <b>versión fuerte</b> (&nbsp;y, por ende, en su versión débil&nbsp;).</p>
 
@@ -562,7 +599,7 @@
 
 <p>Desde una perspectiva puramente lógica y computacional, la formulación de la mecánica clásica puede entenderse como un proceso progresivo de <b>compresión y refactorización de código</b>. Lejos de restar mérito a la arquitectura newtoniana, esta lectura pone en evidencia la brillantez de su diseño: la creación de abstracciones capaces de sintetizar una cantidad inmensa de datos empíricos en una interfaz elegante y ejecutable.</p>
 
-<p>Para comprender por qué las expresiones particulares (como la atracción gravitatoria o la fuerza electrostática) son <b>definiciones de modelo</b> y no leyes fundamentales independientes del movimiento, basta con observar la evolución de la ecuación dinámica en tres niveles de abstracción:</p>
+<p>Para comprender por qué las expresiones particulares (&nbsp;como la atracción gravitatoria o la fuerza electrostática&nbsp;) son <b>definiciones de modelo</b> y no leyes fundamentales independientes del movimiento, basta con observar la evolución de la ecuación dinámica en tres niveles de abstracción:</p>
 
 <b>1. El código fuente crudo (Ecuación totalmente descomprimida)</b>
 <p>En el nivel más elemental e intrínseco, la realidad empírica de un sistema de $n$ partículas no conoce de agrupaciones abstractas. La ecuación de movimiento real para una partícula individual $i$ se presenta de forma totalmente "descomprimida", detallando cada una de las interacciones recíprocas individuales:</p>
@@ -576,7 +613,7 @@
 
 <p class="math-block">$\mathrm{function} \:\: {\mathbf{F}{\scriptstyle{\mathrm{G}}}}_{\hspace{+0.045em}ij}\,(m_i, m_j, {\mathbf{r}}_{ij}) \,\doteq\, -\,G \, \dfrac{m_i \, m_j}{r_{ij}^2} \, \hat{\mathbf{r}}_{ij}$</p>
 
-<p>Al definir e invocar estos módulos (gravitatorios, electrostáticos, etc.), el código original se semi-comprime, reduciendo la sumatoria de interacciones individuales a un conjunto de fuerzas clasificadas por su origen físico:</p>
+<p>Al definir e invocar estos módulos (&nbsp;gravitatorios, electrostáticos, etc.&nbsp;), el código original se semi-comprime, reduciendo la sumatoria de interacciones individuales a un conjunto de fuerzas clasificadas por su origen físico:</p>
 
 <p class="math-block">$\sum_{j \neq i} {\mathbf{F}{\scriptstyle{\mathrm{G}}}}_{\hspace{+0.045em}ij} + \sum_{j \neq i} {\mathbf{F}{\scriptstyle{\mathrm{E}}}}_{\hspace{+0.045em}ij} + \dots + \sum_{j \neq i} {\mathbf{F}{\scriptstyle{\mathrm{N}}}}_{\hspace{+0.045em}ij} \, = \, m_i \, {\vec{a}}_{\hspace{+0.045em}i}$</p>
 
@@ -589,7 +626,7 @@
 
 <p>${\mathbf{F}}_i \,=\, m_i \, {\vec{a}}_{\hspace{+0.045em}i}$</p>
 
-<p>Bajo este prisma epistemológico, resulta evidente que la segunda ley de Newton es el <b>kernel o motor de ejecución principal</b>, mientras que la fuerza de gravedad y el resto de las interacciones son <b>definiciones de entrada (inputs)</b> creadas por los físicos para alimentar dicho motor. Confundir una definición de fuerza con una ley fundamental de la dinámica equivale a confundir el cuerpo de una función auxiliar con el propio compilador.</p>
+<p>Bajo este prisma epistemológico, resulta evidente que la segunda ley de Newton es el <b>kernel o motor de ejecución principal</b>, mientras que la fuerza de gravedad y el resto de las interacciones son <b>definiciones de entrada (&nbsp;inputs&nbsp;)</b> creadas por los físicos para alimentar dicho motor. Confundir una definición de fuerza con una ley fundamental de la dinámica equivale a confundir el cuerpo de una función auxiliar con el propio compilador.</p>
 
 <h2 id="AN">Anexos</h2>
 
@@ -865,22 +902,35 @@
 
 <p>En desarrollo&nbsp;...</p>
 
-<br><br>
-
-			</section>
-		</div>
-	</div>
 	<footer>
 		<p><a href='https://github.com/aphysica'>&#160;github.com&#160;</a></p>
 	</footer>
 
 <script>
-	function myTheme() {
-		document.body.classList.toggle("dark-mode");
+	function updateLabels() {
+		document.getElementById("btnTheme").textContent =
+			document.body.classList.contains("dark-mode") ? "Claro" : "Oscuro";
+		document.getElementById("btnFont").textContent =
+			document.body.classList.contains("sans-serif") ? "Serif" : "Sans-serif";
 	}
+	updateLabels();
 
+	function myTheme() {
+		const isDark = document.body.classList.toggle("dark-mode");
+		localStorage.setItem("theme", isDark ? "dark" : "light");
+		updateLabels();
+	}
 	function myFont() {
-		document.body.classList.toggle("sans-serif");
+		const isSans = document.body.classList.toggle("sans-serif");
+		localStorage.setItem("font", isSans ? "sans" : "serif");
+		updateLabels();
+	}
+	function changeSize(delta) {
+		const root = document.documentElement;
+		const current = parseFloat(getComputedStyle(root).fontSize) || 16;
+		const next = Math.min(22, Math.max(13, current + delta));
+		root.style.fontSize = next + "px";
+		localStorage.setItem("zoom", next);
 	}
 </script>
 
