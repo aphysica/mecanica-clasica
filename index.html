@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 	<meta charset="utf-8">
+	<title>Mecánica Clásica</title>
 	<meta name="robots" content="index, follow">
 	<meta name="author" content="Alejandro A. Torassa">
 	<meta name="keywords" content="física, mecánica clásica, mecánica relacional">
@@ -17,7 +18,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Spectral:wght@400;700&display=swap" rel="stylesheet">
 	<script>
-		MathJax = {
+		window.MathJax = {
 			loader: { load: ['ui/lazy'] },
 			options: {
 				lazyMargin: '800px'
@@ -27,26 +28,24 @@
 			}
 		};
 	</script>
-	<script async="async" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-	<title>Mecánica Clásica</title>
+	<script async id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 	<style>
 		*, *::before, *::after {
 			box-sizing: border-box;
+			padding: 0;
+			margin: 0;
 		}
-		html, body {
-			max-width: 100%;
-			overflow-x: hidden;
+		h1, h2 {
+			margin: 0.83em 0;
+		}
+		h3, ul, p {
+			margin: 1em 0;
 		}
 		html {
-			border: 0;
-			margin: 0;
-			padding: 0;
-			outline: 0;
-			font-size: 16px;
-			line-height: 1.4;
-			list-style: none;
-			list-style-type: none;
-			text-decoration: none;
+			font-size: 100%;
+			-webkit-text-size-adjust: 100%;
+			overflow-x: hidden;
+			overflow-x: clip;
 		}
 		body {
 			--color-bg: #ffffff;
@@ -57,7 +56,7 @@
 			--color-part: #363636;
 			--color-note: #c63636;
 			--color-border: #cccccc;
-			--color-link: #2883f3;
+			--color-link: #1b6ed6;
 
 			--font-family: 'Spectral', ui-serif, Georgia, serif;
 			--line-height: 1.4;
@@ -67,8 +66,12 @@
 			--fs-mathjax: 105%;
 
 			max-width: 75ch;
+			min-height: 100vh;
+			min-height: 100dvh;
 			margin: 0 auto;
-			padding: 1rem 1.5rem;
+			padding: 0 1.5rem;
+			overflow-x: hidden;
+			overflow-x: clip;
 
 			font-family: var(--font-family);
 			line-height: var(--line-height);
@@ -76,15 +79,16 @@
 			color: var(--color-text);
 			font-size: var(--fs-body);
 			text-align: justify;
+			-webkit-font-smoothing: antialiased;
 			transition: background-color 0.3s ease, color 0.3s ease, font-family 0.3s ease;
 		}
 		body.dark-mode {
 			--color-bg: #303030;
-			--color-text: #efefef;
+			--color-text: #dedede;
 			--color-title: #70a6d4;
 			--color-h2: #b2caf5;
-			--color-strong: #efefef;
-			--color-part: #dfdfdf;
+			--color-strong: #f2f2f2;
+			--color-part: #c7c7c7;
 			--color-note: #f28b82;
 			--color-border: #555555;
 			--color-link: #6ea8fe;
@@ -97,17 +101,33 @@
 			--fs-h2: 180%;
 			--fs-mathjax: 116.4%;
 		}
+		body.align-left {
+			text-align: left;
+		}
 		#myTitle, h2 {
 			text-align: left;
+			text-wrap: balance;
 			transition: color 0.3s ease;
 		}
 		#myTitle {
+			padding-top: 0.6rem;
 			color: var(--color-title);
 			font-size: var(--fs-title);
 		}
 		h2 {
 			color: var(--color-h2);
 			font-size: var(--fs-h2);
+		}
+		[data-back-to-toc] {
+			cursor: pointer;
+			user-select: none;
+			-webkit-user-select: none;
+			-webkit-tap-highlight-color: transparent;
+		}
+		[data-back-to-toc]:hover::after {
+			content: " ↑";
+			font-size: 0.75em;
+			opacity: 0.6;
 		}
 		.strong {
 			color: var(--color-strong);
@@ -120,11 +140,16 @@
 			transition: color 0.3s ease;
 		}
 		a {
-			outline: none;
 			color: var(--color-link);
 			text-decoration: none;
 			word-break: break-word;
-			overflow-wrap: break-word;
+			overflow-wrap: anywhere;
+		}
+		a:focus-visible,
+		.toolbar button:focus-visible {
+			outline: 2px solid var(--color-link);
+			outline-offset: 2px;
+			border-radius: 3px;
 		}
 		ul {
 			list-style: none;
@@ -159,30 +184,48 @@
 			text-align: left;
 			overflow-x: auto;
 			overflow-y: hidden;
+			overflow-y: clip;
 			padding: 0.35em 0;
+			overscroll-behavior-x: contain;
 		}
 		.toolbar {
-			display: flex;
-			flex-wrap: wrap;
-			align-items: center;
-			gap: 0.5em;
-			margin: 2.5em 0;
+			display: grid;
+			grid-template-columns: repeat(8, 1fr);
+			gap: 0.5rem;
+			max-width: 32rem;
+			margin: 2.2em 0;
 		}
 		.toolbar button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			height: 2.25rem;
+			padding: 0 0.45rem;
 			background: transparent;
 			color: var(--color-text);
 			border: 1px solid var(--color-border);
 			border-radius: 4px;
-			padding: 0.25em 0.65em;
 			font-family: inherit;
-			font-size: 1.02rem;
+			font-size: 0.95rem;
+			white-space: nowrap;
 			cursor: pointer;
 			opacity: 0.85;
-			transition: opacity 0.2s ease, border-color 0.3s ease;
+			-webkit-tap-highlight-color: transparent;
+			transition: opacity 0.2s ease, border-color 0.3s ease, transform 0.12s ease;
 		}
-		.toolbar button:hover {
+		.toolbar .btn-wide {
+			grid-column: span 2;
+		}
+		@media (hover: hover) {
+			.toolbar button:hover {
+				opacity: 1;
+				border-color: var(--color-title);
+			}
+		}
+		.toolbar button:active {
 			opacity: 1;
 			border-color: var(--color-title);
+			transform: scale(0.97);
 		}
 		footer {
 			margin-top: 3em;
@@ -192,42 +235,77 @@
 		}
 		@media (max-width: 600px) {
 			body {
-				padding: 0.75rem;
+				padding: 0 1rem;
 			}
+			.toolbar {
+				grid-template-columns: repeat(4, 1fr);
+				max-width: 17.5rem;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			body.align-left .toolbar {
+				margin-left: 0;
+				margin-right: 0;
+			}
+			#btnTheme { order: 1; }
+			#btnFont { order: 2; }
+			#btnAlign { order: 3; }
+			#btnReset { order: 4; }
+			#btnZoomOut { order: 5; }
+			#btnZoomIn { order: 6; }
 		}
 	</style>
 </head>
 <body>
 
 <script>
-	if (localStorage.getItem("theme") === "dark") document.body.classList.add("dark-mode");
-	if (localStorage.getItem("font") === "sans") document.body.classList.add("sans-serif");
-	const savedZoom = localStorage.getItem("zoom");
-	if (savedZoom) document.documentElement.style.fontSize = savedZoom + "px";
+	try {
+		if (localStorage.getItem("theme") === "dark") document.body.classList.add("dark-mode");
+		if (localStorage.getItem("font") === "sans") document.body.classList.add("sans-serif");
+		if (localStorage.getItem("align") === "left") document.body.classList.add("align-left");
+		const savedZoom = localStorage.getItem("zoom");
+		if (savedZoom) document.documentElement.style.fontSize = `${savedZoom}px`;
+	} catch (e) {}
 </script>
+
+<main>
+
+<article>
+
+<header>
 
 <h1 id="myTitle">Mecánica Clásica</h1>
 
 <p>Un análisis lógico, epistemológico y ontológico de la mecánica clásica.</p>
 
 <div class="toolbar">
-	<button id="btnTheme" type="button" onclick="myTheme();">Oscuro</button>
-	<button id="btnFont" type="button" onclick="myFont();">Sans-serif</button>
-	<button type="button" onclick="changeSize(-1);" title="Reducir letra">A−</button>
-	<button type="button" onclick="changeSize(1);" title="Aumentar letra">A+</button>
+	<button id="btnTheme" class="btn-wide" type="button">Oscuro</button>
+	<button id="btnFont" class="btn-wide" type="button">Sans-serif</button>
+	<button id="btnZoomOut" type="button" title="Reducir letra">A−</button>
+	<button id="btnZoomIn" type="button" title="Aumentar letra">A+</button>
+	<button id="btnAlign" type="button" title="Cambiar alineación"></button>
+	<button id="btnReset" type="button" title="Restaurar valores">↺</button>
 </div>
 
 <p class="note"><i>17/11/2026 : Lo nuevo : Fuerzas de la Naturaleza, Tercera Ley de Newton, Segunda Ley de Newton, Anexos y Apéndices, y Primera Ley de Newton.</i></p>
 <p class="note"><i>Artículo en constante revisión y evolución, sin fecha de cierre aún.</i></p>
-<p class="note"><i>Autor: Alejandro A. Torassa (ORCID: <a href='https://orcid.org/0000-0002-1389-247X'>0000-0002-1389-247X</a>)</i></p>
-<p class="note"><i>Comentarios y Sugerencias: <a href='https://aphysica.github.io/torassa/abs/200'>Contacto</a> (¡Gracias!)</i></p>
-<p class="note" style="margin-bottom: 3em;"><i>(&nbsp;v1.0.4 b&nbsp;) : <a href='https://doi.org/rwb5'>https://doi.org/rwb5</a></i></p>
+<p class="note"><i>Autor: Alejandro A. Torassa (&nbsp;ORCID: <a href='https://orcid.org/0000-0002-1389-247X'>0000-0002-1389-247X</a>&nbsp;)</i></p>
+<p class="note"><i>Comentarios y Sugerencias: <a href='https://aphysica.github.io/torassa/abs/200'>Contacto</a> (&nbsp;¡Gracias!&nbsp;)</i></p>
+<p class="note"><i>(&nbsp;v1.0.4 b&nbsp;) : <a href='https://doi.org/rwb5'>https://doi.org/rwb5</a> (&nbsp;<a class="note" href="https://creativecommons.org/licenses/by/4.0/">cc-by-4.0</a>&nbsp;)</i></p>
 
-<h2>Introducción</h2>
+</header>
+
+<section aria-labelledby="intro">
+
+<h2 id="intro">Introducción</h2>
 
 <p>La mecánica clásica se divide según su formalismo matemático en: mecánica newtoniana (también llamada mecánica vectorial), mecánica d'alembertiana (también llamada mecánica relacional), mecánica lagrangiana y mecánica hamiltoniana (todos estos modelos son observacionalmente equivalentes entre sí). Este artículo presenta un análisis lógico, epistemológico y ontológico de la mecánica newtoniana en particular y de la física teórica en general (principalmente, este artículo presenta un análisis lógico, epistemológico y ontológico de la dinámica newtoniana de la partícula para sistemas de referencia inerciales y no inerciales).</p>
 
-<h2>Índice</h2>
+</section>
+
+<nav aria-labelledby="index">
+
+<h2 id="index">Índice</h2>
 
 <p class="strong">PARTE I</p>
 
@@ -269,7 +347,13 @@
 
 <p><a href="#AN">4. Anexos y</a>&nbsp;<a href="#AP">Apéndices</a></p>
 
-<h2 class="part">PARTE I</h2>
+</nav>
+
+<section aria-labelledby="part-1">
+
+<h2 id="part-1" class="part">PARTE I</h2>
+
+<section aria-labelledby="T01">
 
 <h2 id="T01">Primera Ley de Newton</h2>
 
@@ -292,6 +376,10 @@
 <p>Pero volvemos al tema inicial del artículo, porque tal como está enunciada ahora la primera ley de Newton entonces se puede afirmar que en nuestro Universo la primera ley de Newton se deduce de la segunda ley de Newton, puesto que si las fuerzas que actúan sobre una partícula están equilibradas entonces la fuerza neta es igual a cero y, por lo tanto, la aceleración de la partícula es también igual a cero, lo que significa que la partícula está en un estado de reposo o de movimiento rectilíneo uniforme.</p>
 
 <p>Esto que parece ser una falla de la dinámica newtoniana puede ser algo bueno, porque ahora es posible unificar la primera ley de Newton con la segunda ley de Newton (es decir, incluir la primera ley de Newton en la segunda ley de Newton). Luego, para que la segunda ley de Newton pueda ser corroborada o refutada en un tipo de Universo en el cual es posible encontrar partículas sobre las cuales no actúe fuerza alguna, solamente habría que hacer la siguiente aclaración: en la segunda ley de Newton, si sobre una partícula no actúa fuerza alguna entonces esto debe ser interpretado como si una fuerza neta igual a cero actuara sobre la partícula.</p>
+
+</section>
+
+<section aria-labelledby="T02">
 
 <h2 id="T02">Segunda Ley de Newton</h2>
 
@@ -337,6 +425,10 @@
 
 </ul>
 
+</section>
+
+<section aria-labelledby="T03">
+
 <h2 id="T03">Tercera Ley de Newton</h2>
 
 <p class="strong"><i>Si una partícula $i$ ejerce una fuerza ${\mathbf{F}_{j\hspace{+0.090em}i}}$ sobre otra partícula $j$ entonces la partícula $j$ ejerce una fuerza $-{\mathbf{F}_{i\hspace{-0.030em}j}}$ igual y de sentido contrario sobre la partícula $i$. $[ \, {\mathbf{F}_{j\hspace{+0.090em}i}} = - \, {\mathbf{F}_{i\hspace{-0.030em}j}} \, ]$</i></p>
@@ -361,6 +453,10 @@
 
 <p>Finalmente, es fundamental comprender que la eventual invalidez o violación de la tercera ley de Newton no compromete en absoluto la validez de la segunda ley (ni, por extensión, de la primera). A pesar de la creencia tradicional que presenta a las tres leyes como un bloque monolítico e indisoluble, la dinámica de una partícula opera de manera plenamente consistente a través de $( \, {\mathbf{F}}_i \,=\, m_i \, {\vec{a}}_{\hspace{+0.045em}i} \, )$, aun cuando los principios de acción y reacción (en sus versiones débil y fuerte) dejen de cumplirse universalmente.&nbsp;<a href="#N131">[N131]</a></p>
 
+</section>
+
+<section aria-labelledby="T04">
+
 <h2 id="T04">Fuerzas de la Naturaleza</h2>
 
 <p>En el desarrollo didáctico habitual de la física suele calificarse a expresiones como la ley de gravitación universal de Newton o la ley de Coulomb como "leyes empíricas descubiertas experimentalmente". Sin embargo, bajo un análisis epistemológico riguroso, <b>dichas formulaciones no operan como leyes empíricas inductivas, sino como definiciones constitutivas del modelo físico</b>.</p>
@@ -381,7 +477,15 @@
 
 <p>Por último, esta concepción epistemológica esclarece cómo se comporta la teoría frente a la refutación empírica. Al sostener un conjunto cerrado de definiciones de interacción, cualquier discrepancia sistemática entre la aceleración predicha y la observada obliga a una bifurcación estricta: o bien se amplía formalmente el conjunto incorporando una nueva interacción constitutiva debidamente acoplada, o bien se reconoce que se han alcanzado los límites estructurales de validez del propio paradigma, cediendo el paso a marcos teóricos más profundos.</p>
 
-<h2 class="part">PARTE II</h2>
+</section>
+
+</section>
+
+<section aria-labelledby="part-2">
+
+<h2 id="part-2" class="part">PARTE II</h2>
+
+<section aria-labelledby="T05">
 
 <h2 id="T05">Ecuación de Movimiento</h2>
 
@@ -389,41 +493,85 @@
 
 <p>En desarrollo&nbsp;...</p>
 
+</section>
+
+<section aria-labelledby="T06">
+
 <h2 id="T06">Problema Teórico</h2>
 
 <p>En desarrollo&nbsp;...</p>
+
+</section>
+
+<section aria-labelledby="T07">
 
 <h2 id="T07">Solución Teórica 1</h2>
 
 <p>En desarrollo&nbsp;...</p>
 
+</section>
+
+<section aria-labelledby="T08">
+
 <h2 id="T08">Solución Teórica 2</h2>
 
 <p>En desarrollo&nbsp;...</p>
 
-<h2 class="part">PARTE III</h2>
+</section>
+
+</section>
+
+<section aria-labelledby="part-3">
+
+<h2 id="part-3" class="part">PARTE III</h2>
+
+<section aria-labelledby="T09">
 
 <h2 id="T09">Momento Lineal</h2>
 
 <p>En desarrollo&nbsp;...</p>
 
+</section>
+
+<section aria-labelledby="T10">
+
 <h2 id="T10">Momento Angular</h2>
 
 <p>En desarrollo&nbsp;...</p>
+
+</section>
+
+<section aria-labelledby="T11">
 
 <h2 id="T11">Trabajo y Energía</h2>
 
 <p>En desarrollo&nbsp;...</p>
 
+</section>
+
+<section aria-labelledby="T12">
+
 <h2 id="T12">Leyes de Conservación</h2>
 
 <p>En desarrollo&nbsp;...</p>
 
-<h2 class="part">PARTE IV</h2>
+</section>
+
+</section>
+
+<section aria-labelledby="part-4">
+
+<h2 id="part-4" class="part">PARTE IV</h2>
+
+<section aria-labelledby="O0">
 
 <h2 id="O0">Observaciones Generales</h2>
 
 <p>En desarrollo&nbsp;...</p>
+
+</section>
+
+<section aria-labelledby="B0">
 
 <h2 id="B0">Referencias y Bibliografía</h2>
 
@@ -499,23 +647,27 @@
 
 <p id="B12">[B12] A. Carpio, Principios de Filosofía, (1974).</p>
 
+</section>
+
+<section aria-labelledby="N0">
+
 <h2 id="N0">Notas y Aclaraciones</h2>
 
-<p id="N111"><b>[N111]</b></p>
+<p class="top" id="N111"><b>[N111]</b></p>
 
-<p><b>Primera Ley de Newton</b></p>
+<h3>Primera Ley de Newton</h3>
 
 <p>La primera ley de Newton (&nbsp;y sobre todo de Galileo Galilei, claro está&nbsp;) tiene una enorme importancia histórica puesto que establece, al contrario de lo que postulaba la filosofía de Aristóteles, que una partícula para continuar en su estado de movimiento rectilíneo uniforme no necesita de ningún agente externo. Por lo tanto, esta ley cambió totalmente la manera de concebir el Universo. Pero pasaron más de 300 años desde la publicación de Newton <a href="#R01">[R01]</a> y este artículo es un análisis contemporáneo. Además, la primera ley de Newton no se postuló tal como se postula en este artículo, puesto que este artículo no pretende ser una descripción histórica detallada de la mecánica clásica sino más bien un análisis teórico-filosófico de la mecánica clásica.</p>
 
-<p id="N121"><b>[N121]</b></p>
+<p class="top" id="N121"><b>[N121]</b></p>
 
-<p><b>Segunda Ley de Newton</b></p>
+<h3>Segunda Ley de Newton</h3>
 
 <p>Existe un enfoque epistemológico alternativo (&nbsp;asociado históricamente a planteos de tipo machiano <a href="#R08">[R08]</a>&nbsp;) en el que la masa inercial no se define <i>a priori</i> por la teoría, sino que se deduce empíricamente al constatar experimentalmente que el cociente entre la fuerza neta y la aceleración obtenida sobre una misma partícula resulta ser un valor constante $( \, \|{{\mathbf{F}}_i}\| \hspace{+0.060em} / \|{\vec{a}}_{\hspace{+0.045em}i}\| \,=\, k_{\hspace{+0.045em}i} \, )$, definiendo luego a esa constante experimental como la masa inercial $( \, m_i \doteq k_{\hspace{+0.045em}i} \, )$. Sin embargo, este trabajo no adopta ese camino porque la vía empírica tropieza con un obstáculo insalvable: en estados de reposo o de movimiento rectilíneo uniforme (MRU), la aceleración $( \, {\vec{a}}_{\hspace{+0.045em}i} \, )$ es nula, lo que vuelve inaplicable el cociente operacional e impide definir la masa inercial en esos estados. Más grave aún, como la aceleración $( \, {\vec{a}}_{\hspace{+0.045em}i} \, )$ no es una cantidad invariante bajo transformaciones entre sistemas de referencia, definir la masa inercial $( \, m_i \, )$ a partir de $( \, {\vec{a}}_{\hspace{+0.045em}i} \, )$ convertiría a una propiedad supuestamente intrínseca de la materia en una magnitud dependiente del observador, destruyendo su estatus de constante escalar característica de la partícula. Según este trabajo, definir <i>a priori</i> la masa inercial como una constante escalar e intrínseca de la partícula (tal como son definidas la carga eléctrica y la masa gravitatoria) es la única vía para evitar este caos cinemático y preservar la consistencia lógica de la dinámica.</p>
 
-<p id="N131"><b>[N131]</b></p>
+<p class="top" id="N131"><b>[N131]</b></p>
 
-<p><b>Tercera Ley de Newton</b></p>
+<h3>Tercera Ley de Newton</h3>
 
 <p>Existe una tendencia habitual en los manuales de física clásica a presentar las tres leyes de Newton como un bloque monolítico e indisoluble, sugiriendo de forma implícita que la modificación o falsedad de la tercera ley acarrearía el derrumbe instantáneo de todo el edificio dinámico. Sin embargo, un análisis axiomático riguroso demuestra que esto es epistemológicamente falso.</p>
 
@@ -535,9 +687,9 @@
 
 <p>Por lo tanto, la tercera ley de Newton no es un dogma fundacional de la dinámica ni un requisito lógico para la validez de la segunda ley, sino una <b>condición de simetría particular</b> —típica de las fuerzas centrales estáticas— que actúa como puente y bisagra histórica hacia la física de campos. Comprender esta libertad formal libera a la mecánica clásica de su rigidez dogmática y la devuelve a su verdadera categoría: un modelo representativo y deductivo de la naturaleza, flexible y abierto a generalizaciones.</p>
 
-<p id="N141"><b>[N141]</b></p>
+<p class="top" id="N141"><b>[N141]</b></p>
 
-<p><b>Fuerzas de la Naturaleza</b></p>
+<h3>Fuerzas de la Naturaleza</h3>
 
 <p>A modo de hoja de ruta metodológica, consideremos un universo clásico regido exclusivamente por dos interacciones fundamentales: la gravitatoria y la electrostática.</p>
 
@@ -585,9 +737,9 @@
 
 <p>De este modo, la ecuación dinámica $( \, {\mathbf{F}}_{\hspace{+0.045em}i} = m_i \, \vec{a}_{\hspace{+0.045em}i} \, )$ adquiere contenido empírico pleno y refutable sin margen para términos improvisados.</p>
 
-<p id="N142"><b>[N142]</b></p>
+<p class="top" id="N142"><b>[N142]</b></p>
 
-<p><b>Fuerzas de la Naturaleza</b></p>
+<h3>Fuerzas de la Naturaleza</h3>
 
 <p>Desde una perspectiva puramente lógica y computacional, la formulación de la mecánica clásica puede entenderse como un proceso progresivo de <b>compresión y refactorización de código</b>. Lejos de restar mérito a la arquitectura newtoniana, esta lectura pone en evidencia la brillantez de su diseño: la creación de abstracciones capaces de sintetizar una cantidad inmensa de datos empíricos en una interfaz elegante y ejecutable.</p>
 
@@ -620,9 +772,13 @@
 
 <p>Bajo este prisma epistemológico, resulta evidente que la segunda ley de Newton es el <b>kernel o motor de ejecución principal</b>, mientras que la fuerza de gravedad y el resto de las interacciones son <b>definiciones de entrada (&nbsp;inputs&nbsp;)</b> creadas por los físicos para alimentar dicho motor. Confundir una definición de fuerza con una ley fundamental de la dinámica equivale a confundir el cuerpo de una función auxiliar con el propio compilador.</p>
 
+</section>
+
+<section aria-labelledby="AN">
+
 <h2 id="AN">Anexos</h2>
 
-<h3>Anexo I</h3>
+<h3 class="top">Anexo I</h3>
 
 <h3>Mecánica Newtoniana</h3>
 
@@ -680,7 +836,7 @@
 
 <p>Newtoniano $\doteq {\mathbf{F}}_i$ (&nbsp;${\mathbf{F}}_i$ es invariante bajo transformaciones entre sistemas inerciales y no inerciales y ${\mathbf{a}}_{\hspace{+0.045em}i}$ también es invariante bajo transformaciones entre sistemas inerciales y no inerciales&nbsp;)</p>
 
-<h3>Anexo II</h3>
+<h3 class="top">Anexo II</h3>
 
 <h3>Mecánica D'Alembertiana</h3>
 
@@ -738,7 +894,7 @@
 
 <p>D'Alembertiano $\doteq {\mathbf{T}}_i$ (&nbsp;${\mathbf{T}}_i$ es invariante bajo transformaciones entre sistemas inerciales y no inerciales y ${\mathbf{a}}_{\hspace{+0.045em}i}$ también es invariante bajo transformaciones entre sistemas inerciales y no inerciales&nbsp;)</p>
 
-<h3>Anexo III</h3>
+<h3 class="top">Anexo III</h3>
 
 <h3>Mecánica Lagrangiana</h3>
 
@@ -752,7 +908,7 @@
 
 <p>En desarrollo&nbsp;...<br></p>
 
-<h3>Anexo IV</h3>
+<h3 class="top">Anexo IV</h3>
 
 <h3>Mecánica Hamiltoniana</h3>
 
@@ -766,7 +922,7 @@
 
 <p>En desarrollo&nbsp;...<br></p>
 
-<h3>Observaciones Generales</h3>
+<h3 class="top">Observaciones Generales</h3>
 
 <ul>
 	
@@ -790,13 +946,17 @@
 
 </ul>
 
+</section>
+
+<section aria-labelledby="AP">
+
 <h2 id="AP">Apéndices</h2>
 
-<h3>Apéndice I</h3>
+<h3 class="top">Apéndice I</h3>
 
 <h3>Magnitudes Cinemáticas</h3>
 
-<p><b>Las Magnitudes Radiales:</b> Las magnitudes radiales (&nbsp;${r} , {\dot{r}} , {\ddot{r}}$&nbsp;) son magnitudes escalares y son invariantes bajo transformaciones entre sistemas inerciales y no inerciales.</p>
+<p><b>1. Las Magnitudes Radiales:</b> Las magnitudes radiales (&nbsp;${r} , {\dot{r}} , {\ddot{r}}$&nbsp;) son magnitudes escalares y son invariantes bajo transformaciones entre sistemas inerciales y no inerciales.</p>
 
 <ul>
 
@@ -808,7 +968,7 @@
 
 </ul>
 
-<p><b>Las Magnitudes Escalares:</b> Las magnitudes escalares (&nbsp;${\tau} , {\dot{\tau}} , {\ddot{\tau}}$&nbsp;) son magnitudes escalares y son invariantes bajo transformaciones entre sistemas inerciales y no inerciales.</p>
+<p><b>2. Las Magnitudes Escalares:</b> Las magnitudes escalares (&nbsp;${\tau} , {\dot{\tau}} , {\ddot{\tau}}$&nbsp;) son magnitudes escalares y son invariantes bajo transformaciones entre sistemas inerciales y no inerciales.</p>
 
 <ul>
 
@@ -820,7 +980,7 @@
 
 </ul>
 
-<p><b>Las Magnitudes Relacionales:</b> Las magnitudes relacionales (&nbsp;${\mathbf{r}} , {\mathbf{v}} , {\mathbf{a}}$&nbsp;) son magnitudes vectoriales y son invariantes bajo transformaciones entre sistemas inerciales y no inerciales.</p>
+<p><b>3. Las Magnitudes Relacionales:</b> Las magnitudes relacionales (&nbsp;${\mathbf{r}} , {\mathbf{v}} , {\mathbf{a}}$&nbsp;) son magnitudes vectoriales y son invariantes bajo transformaciones entre sistemas inerciales y no inerciales.</p>
 
 <ul>
 	
@@ -832,7 +992,7 @@
 
 </ul>
 
-<h3 id="AP02">Apéndice II</h3>
+<h3 class="top" id="AP02">Apéndice II</h3>
 
 <h3>Mecánica D'Alembertiana</h3>
 
@@ -842,7 +1002,7 @@
 
 <p>En la literatura científica contemporánea, hay varias vías de desarrollo hacia este objetivo, entre ellas:</p>
 
-<p><b>Mecánica Relacional de Weber-Assis:</b> Propuesta que deduce las fuerzas ficticias y la fuerza de inercia ordinaria a partir de una fuerza gravitatoria de tipo weberiana debida a la interacción de las masas gravitatorias del Universo, aunque con desviaciones respecto a la equivalencia observacional newtoniana clásica.</p>
+<p><b>1. Mecánica Relacional de Weber-Assis:</b> Propuesta que deduce las fuerzas ficticias y la fuerza de inercia ordinaria a partir de una fuerza gravitatoria de tipo weberiana debida a la interacción de las masas gravitatorias del Universo, aunque con desviaciones respecto a la equivalencia observacional newtoniana clásica.</p>
 
 <ul>
 
@@ -850,7 +1010,7 @@
 
 </ul>
 
-<p><b>Fuerza Cinética (Torassa):</b> Formulación donde el término ${-\, m\hspace{+0.060em}{\mathbf{a}}}$ (&nbsp;la fuerza de inercia relacional&nbsp;) emerge directamente como la fuerza neta de una interacción real constitutiva, devolviendo el carácter dinámico y relacional al sistema sin perder equivalencia observacional.</p>
+<p><b>2. Fuerza Cinética (Torassa):</b> Formulación donde el término ${-\, m\hspace{+0.060em}{\mathbf{a}}}$ (&nbsp;la fuerza de inercia relacional&nbsp;) emerge directamente como la fuerza neta de una interacción real constitutiva, devolviendo el carácter dinámico y relacional al sistema sin perder equivalencia observacional.</p>
 
 <ul>
 
@@ -864,7 +1024,7 @@
 
 </ul>
 
-<p><b>Mecanismo de Campo Escalar Gravitatorio (Torassa):</b> Enfoque cosmológico donde la aceleración de la masa gravitatoria interactúa con un campo escalar de fondo no nulo (&nbsp;sustentado por la naturaleza estrictamente positiva de la masa gravitatoria en el Universo&nbsp;). Este campo actúa de manera análoga a un campo de Higgs clásico, provocando que la aceleración aparezca en la ecuación de movimiento de forma idéntica a como la velocidad de una carga aparece en la fuerza de Lorentz.</p>
+<p><b>3. Mecanismo de Campo Escalar Gravitatorio (Torassa):</b> Enfoque cosmológico donde la aceleración de la masa gravitatoria interactúa con un campo escalar de fondo no nulo (&nbsp;sustentado por la naturaleza estrictamente positiva de la masa gravitatoria en el Universo&nbsp;). Este campo actúa de manera análoga a un campo de Higgs clásico, provocando que la aceleración aparezca en la ecuación de movimiento de forma idéntica a como la velocidad de una carga aparece en la fuerza de Lorentz.</p>
 
 <ul>
 
@@ -872,7 +1032,7 @@
 
 </ul>
 
-<h3>Apéndice III</h3>
+<h3 class="top">Apéndice III</h3>
 
 <h3>Mecánica Lagrangiana</h3>
 
@@ -888,42 +1048,112 @@
 
 <p>En desarrollo&nbsp;...<br></p>
 
-<h3>Apéndice IV</h3>
+<h3 class="top">Apéndice IV</h3>
 
 <h3>Mecánica Hamiltoniana</h3>
 
 <p>En desarrollo&nbsp;...</p>
 
-	<footer>
-		<p><a href='https://github.com/aphysica'>&#160;github.com&#160;</a></p>
-	</footer>
+</section>
+
+</section>
+
+</article>
+
+</main>
+
+<footer>
+	<p><a href='https://github.com/aphysica'>&#160;github.com&#160;</a></p>
+</footer>
 
 <script>
-	function updateLabels() {
-		document.getElementById("btnTheme").textContent =
-			document.body.classList.contains("dark-mode") ? "Claro" : "Oscuro";
-		document.getElementById("btnFont").textContent =
-			document.body.classList.contains("sans-serif") ? "Serif" : "Sans-serif";
-	}
-	updateLabels();
+	const btnTheme = document.getElementById("btnTheme");
+	const btnFont = document.getElementById("btnFont");
+	const btnZoomOut = document.getElementById("btnZoomOut");
+	const btnZoomIn = document.getElementById("btnZoomIn");
+	const btnAlign = document.getElementById("btnAlign");
+	const btnReset = document.getElementById("btnReset");
 
-	function myTheme() {
-		const isDark = document.body.classList.toggle("dark-mode");
-		localStorage.setItem("theme", isDark ? "dark" : "light");
-		updateLabels();
+	const storage = {
+		set(key, val) {
+			try { localStorage.setItem(key, val); } catch (e) {}
+		},
+		clear() {
+			try {
+				["theme", "font", "align", "zoom"].forEach((k) => localStorage.removeItem(k));
+			} catch (e) {}
+		}
+	};
+
+	function updateLabels() {
+		btnTheme.textContent = document.body.classList.contains("dark-mode") ? "Claro" : "Oscuro";
+		btnFont.textContent = document.body.classList.contains("sans-serif") ? "Serif" : "Sans-serif";
+		btnAlign.innerHTML = document.body.classList.contains("align-left")
+			? '<svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>'
+			: '<svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h12M3 18h15"/></svg>';
 	}
-	function myFont() {
-		const isSans = document.body.classList.toggle("sans-serif");
-		localStorage.setItem("font", isSans ? "sans" : "serif");
-		updateLabels();
-	}
+
 	function changeSize(delta) {
 		const root = document.documentElement;
 		const current = parseFloat(getComputedStyle(root).fontSize) || 16;
-		const next = Math.min(22, Math.max(13, current + delta));
-		root.style.fontSize = next + "px";
-		localStorage.setItem("zoom", next);
+		const next = Math.min(32, Math.max(8, current + delta));
+		root.style.fontSize = `${next}px`;
+		storage.set("zoom", next);
 	}
+
+	btnTheme.addEventListener("click", () => {
+		const isDark = document.body.classList.toggle("dark-mode");
+		storage.set("theme", isDark ? "dark" : "light");
+		updateLabels();
+	});
+
+	btnFont.addEventListener("click", () => {
+		const isSans = document.body.classList.toggle("sans-serif");
+		storage.set("font", isSans ? "sans" : "serif");
+		updateLabels();
+	});
+
+	btnZoomOut.addEventListener("click", () => changeSize(-1));
+	btnZoomIn.addEventListener("click", () => changeSize(1));
+
+	btnAlign.addEventListener("click", () => {
+		const isLeft = document.body.classList.toggle("align-left");
+		storage.set("align", isLeft ? "left" : "justify");
+		updateLabels();
+	});
+
+	btnReset.addEventListener("click", () => {
+		document.body.classList.remove("dark-mode", "sans-serif", "align-left");
+		document.documentElement.style.fontSize = "";
+		storage.clear();
+		updateLabels();
+	});
+
+	const indexEl = document.getElementById("index");
+	if (indexEl) {
+		document.querySelectorAll("h2:not(#index):not(#intro):not(.part), .top").forEach((el) => {
+			el.dataset.backToToc = "";
+			el.title = "Volver al índice";
+			el.setAttribute("role", "button");
+			el.tabIndex = 0;
+
+			const goIndex = () => {
+				const sel = window.getSelection();
+				if (sel) sel.removeAllRanges();
+				indexEl.scrollIntoView();
+			};
+
+			el.addEventListener("click", goIndex);
+			el.addEventListener("keydown", (e) => {
+				if (e.key === "Enter" || e.key === " ") {
+					e.preventDefault();
+					goIndex();
+				}
+			});
+		});
+	}
+
+	updateLabels();
 </script>
 
 </body>
